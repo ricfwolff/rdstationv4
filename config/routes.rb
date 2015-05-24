@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
+  
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+
+  root 'leads#index'
+
   resources :leads
-  resources :leads
-  resources :leads
+
   get 'leads/index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'leads#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -16,7 +22,10 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  resources :leads
+
+
+
+
 
   # Example resource route with options:
   #   resources :products do

@@ -20,6 +20,10 @@ module Rdstationv4
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    #
+    config.salesforce_app_id = '3MVG9sG9Z3Q1RlbeyYLLoJqYYqLx6r6xGpwCSRoln_B.UxB2R5KFxtVCYCgcIVGhjr.21DXVieWu8vaJt.Ri4'
+    config.salesforce_app_secret = '7693409129590559621'
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end

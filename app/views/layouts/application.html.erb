@@ -9,6 +9,15 @@
 </head>
 <body>
 
+<div id="user-widget">
+  <% if current_user %>
+    Welcome <strong><%= current_user.name %></strong>!
+    <%= link_to "Sign out", signout_path, id: "sign_out" %>
+  <% else %>
+    <%= link_to "Sign in with Salesforce", "/auth/salesforce", id: "sign_in" %>
+  <% end %>
+</div>
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
