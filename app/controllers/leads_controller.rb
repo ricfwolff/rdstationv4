@@ -27,8 +27,11 @@ class LeadsController < ApplicationController
 
   def update
   	@lead = Lead.find(params[:id])
-    @lead.update(lead_params)
-    redirect_to @lead
+    if @lead.update(lead_params)
+      redirect_to @lead
+    else
+      render 'edit'
+    end
   end
 
   def destroy
