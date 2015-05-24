@@ -4,13 +4,17 @@ class LeadsController < ApplicationController
   end
 
   def new
-  	
+  	@lead = Lead.new()
   end
 
   def create
   	@lead = Lead.new(lead_params)
-  	@lead.save
-  	redirect_to @lead
+
+    if @lead.save
+      redirect_to @lead
+    else
+      render 'new'
+    end
   end
 
   def edit
