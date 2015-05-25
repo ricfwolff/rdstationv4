@@ -6,6 +6,10 @@
 		<input type="submit" name="commit" class="btn btn-primary" value="Save" />
 	</div>
 	<div class="form-group">
+		<%= f.label :Id, :class => 'control-label' %>
+		<%= f.text_field :Id, :class => 'form-control disabled' %>
+	</div>
+	<div class="form-group">
 		<%= f.label :FirstName, :class => 'control-label' %>
 		<%= f.text_field :FirstName, :class => 'form-control' %>
 	</div>
