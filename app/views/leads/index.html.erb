@@ -6,29 +6,5 @@
 			<%= link_to 'Add new lead', new_lead_path, :class => "btn btn-primary" %>
 	    </div>
 	</div>
-	<table class="table table-hover">
-		<tr>
-			<th>Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-			<th>Actions</th>
-		</tr>
-		<% @leads.each do |lead| %>
-			<tr>
-				<td>
-					<%= lead.FirstName %>
-				</td>
-				<td>
-					<%= lead.LastName %>
-				</td>
-				<td>
-					<%= lead.Email %>
-				</td>
-				<td>
-					<%= link_to 'Details', lead_path(lead), :class => "btn btn-default" %>
-					<%= link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %>
-				</td>
-			</tr>
-		<% end %>
-	</table>
+	<%= @leads %>
 </div>
