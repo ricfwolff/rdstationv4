@@ -97,7 +97,7 @@ class LeadsController < ApplicationController
   def lead_params
     params.require(:lead).permit(:name, :last_name, :email, :company, :job_title, :phone, :website)
   end
-  
+
   def lead_sf_params
     params.require(:lead).permit(:Id, :FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
   end
@@ -115,11 +115,13 @@ class LeadsController < ApplicationController
   end
 
   def initialize_client
-    @client = Restforce.new :oauth_token => current_user.oauth_token,
+    if current_user
+      @client = Restforce.new :oauth_token => current_user.oauth_token,
         :refresh_token => current_user.refresh_token,
         :instance_url  => current_user.instance_url,
         :client_id     => Rails.application.config.salesforce_app_id,
         :client_secret => Rails.application.config.salesforce_app_secret
+      end
   end
 
 end
