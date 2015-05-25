@@ -3,19 +3,21 @@ class LeadsController < ApplicationController
   before_action :initialize_client
 
   def index
-    @leads = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+    @leads = Lead.all
+
+    if current_user
+      @leadsSF = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+    end
   end
 
   def new
-  	@lead = @client.describe("Lead")
+    @lead = Lead.new()
   end
 
   def create
-  	@leadId = @client.create("Lead", new_lead_params)
+    @lead = Lead.new(lead_params)
 
-    @lead = @client.find("Lead", @leadId)
-
-    if @lead
+    if @lead.save
       redirect_to @lead
     else
       render 'new'
@@ -23,43 +25,93 @@ class LeadsController < ApplicationController
   end
 
   def edit
-  	@lead = @client.find("Lead", params[:id])
+    @lead = Lead.find(params[:id])
   end
 
   def show
-  	@lead = @client.find("Lead", params[:id])
+    @lead = Lead.find(params[:id])
   end
 
   def update
-    if @client.update("Lead", lead_params)
-      redirect_to leads_path
+    @lead = Lead.find(params[:id])
+    if @lead.update(lead_params)
+      redirect_to @lead
     else
       render 'edit'
     end
   end
 
   def destroy
-  	@client.destroy("Lead", params[:id])
+    @lead = Lead.find(params[:id])
+    @lead.destroy
  
     redirect_to leads_path
   end
+  
+
+
+  # def index
+  #   @leads = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+  # end
+
+  # def new
+  # 	@lead = @client.describe("Lead")
+  # end
+
+  # def create
+  # 	@leadId = @client.create("Lead", new_lead_params)
+
+  #   @lead = @client.find("Lead", @leadId)
+
+  #   if @lead
+  #     redirect_to @lead
+  #   else
+  #     render 'new'
+  #   end
+  # end
+
+  # def edit
+  # 	@lead = @client.find("Lead", params[:id])
+  # end
+
+  # def show
+  # 	@lead = @client.find("Lead", params[:id])
+  # end
+
+  # def update
+  #   if @client.update("Lead", lead_params)
+  #     redirect_to leads_path
+  #   else
+  #     render 'edit'
+  #   end
+  # end
+
+  # def destroy
+  # 	@client.destroy("Lead", params[:id])
+ 
+  #   redirect_to leads_path
+  # end
 	
   private
+
   def lead_params
+    params.require(:lead).permit(:name, :last_name, :email, :company, :job_title, :phone, :website)
+  end
+  
+  def lead_sf_params
     params.require(:lead).permit(:Id, :FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
   end
 
-  def new_lead_params
+  def new_lead_sf_params
     params.require(:lead).permit(:FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
   end
 
-  private
-
+  
   def authenticate
-    if current_user
-    else
-      redirect_to "/auth/salesforce"
-    end
+#    if current_user
+#    else
+#      redirect_to "/auth/salesforce"
+#    end
   end
 
   def initialize_client

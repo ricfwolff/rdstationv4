@@ -17,17 +17,17 @@
 		<% @leads.each do |lead| %>
 			<tr>
 				<td>
-					<%= lead.FirstName %>
+					<%= lead.name %>
 				</td>
 				<td>
-					<%= lead.LastName %>
+					<%= lead.last_name %>
 				</td>
 				<td>
-					<%= lead.Email %>
+					<%= lead.email %>
 				</td>
 				<td>
-					<a class="btn btn-default" href="/leads/<%= lead.Id %>">Details</a>
-					<a data-confirm="Are you sure?" class="btn btn-default" rel="nofollow" data-method="delete" href="/leads/<%= lead.Id %>">Delete</a>
+					<a class="btn btn-default" href="/leads/<%= lead.id %>">Details</a>
+					<a data-confirm="Are you sure?" class="btn btn-default" rel="nofollow" data-method="delete" href="/leads/<%= lead.id %>">Delete</a>
 				</td>
 			</tr>
 		<% end %>

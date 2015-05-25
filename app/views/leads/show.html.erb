@@ -1,29 +1,29 @@
-<h1>Lead <small><%= @lead.FirstName %></small></h1>
+<h1>Lead <small><%= @lead.name %></small></h1>
 <br />
 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 	<p>
 		<a class="btn btn-default" href="/leads/">Back to list</a>
-		<a class="btn btn-primary" href="/leads/<%= @lead.Id %>/edit">Edit</a>
+		<a class="btn btn-primary" href="/leads/<%= @lead.id %>/edit">Edit</a>
 	</p>
 	<p>
-		<strong>Name: </strong><%= @lead.FirstName %>
+		<strong>Name: </strong><%= @lead.name %>
 	</p>
 	<p>
-		<strong>Last name: </strong><%= @lead.LastName %>
+		<strong>Last name: </strong><%= @lead.last_name %>
 	</p>
 	<p>
-		<strong>Email: </strong><%= @lead.Email %>
+		<strong>Email: </strong><%= @lead.email %>
 	</p>
 	<p>
-		<strong>Company: </strong><%= @lead.Company %>
+		<strong>Company: </strong><%= @lead.company %>
 	</p>
 	<p>
-		<strong>Job title: </strong><%= @lead.Title %>
+		<strong>Job title: </strong><%= @lead.job_title %>
 	</p>
 	<p>
-		<strong>Phone: </strong><%= @lead.Phone %>
+		<strong>Phone: </strong><%= @lead.phone %>
 	</p>
 	<p>
-		<strong>Website: </strong><%= @lead.Website %>
+		<strong>Website: </strong><%= @lead.website %>
 	</p>
 </div>
