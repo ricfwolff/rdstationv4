@@ -12,6 +12,7 @@
 			<th>Name</th>
 			<th>Last Name</th>
 			<th>Email</th>
+			<th>Is on Salesforce</th>
 			<th>Actions</th>
 		</tr>
 		<% @leads.each do |lead| %>
@@ -24,6 +25,9 @@
 				</td>
 				<td>
 					<%= lead.email %>
+				</td>
+				<td>
+					<% if lead.salesforceid %>Yes<% else %>No<% end %>
 				</td>
 				<td>
 					<a class="btn btn-default" href="/leads/<%= lead.id %>">Details</a>

@@ -26,4 +26,7 @@
 	<p>
 		<strong>Website: </strong><%= @lead.website %>
 	</p>
+	<p>
+		<strong>Is on SalesForce: </strong><% if @lead.salesforceid %>Yes<% else %>No<% end %>
+	</p>
 </div>
