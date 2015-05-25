@@ -1,3 +1,15 @@
+<% if @lead.errors.any? %>
+	<div class="alert alert-danger alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		<strong>Ooops!</strong> <%= pluralize(@lead.errors.count, "error") %> prohibited this lead from being saved:
+	  <ul>
+	    <% @lead.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+	  </ul>
+	</div>
+<% end %>
+
 <h1>New Lead</h1>
 <br />
 <%= form_for :lead, url: leads_path, :html => {:class => 'col-xs-12 col-sm-12 col-md-5 col-lg-4'} do |f| %>
