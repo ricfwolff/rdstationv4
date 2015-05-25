@@ -53,6 +53,11 @@ class LeadsController < ApplicationController
       @lead = Lead.find(params[:id])
       @externalId = 'rdstation_' + @lead.id.to_s
 
+      puts "Hello, logs!"
+
+      puts @externalId
+
+
       @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
                       "Email" => @lead.email, "Company" => @lead.company,
                       "Title" => @lead.job_title, "Phone" => @lead.phone,
@@ -61,7 +66,7 @@ class LeadsController < ApplicationController
 
       @leadId = @client.create("Lead", @newSFLead)
 
-      @lead.externalId = @leadId
+      @lead.salesforceid = @leadId
 
       @lead.save
 
