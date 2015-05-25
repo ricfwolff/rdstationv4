@@ -64,7 +64,9 @@ class LeadsController < ApplicationController
                       "Website" => @lead.website, "ExternalId" => @externalId
                    }
 
-      @leadId = @client.create("Lead", @newSFLead)
+      @leadId = @client.create!("Lead", @newSFLead)
+
+      puts @leadId
 
       @lead.salesforceid = @leadId
 
