@@ -26,8 +26,7 @@
 					<%= lead.Email %>
 				</td>
 				<td>
-					<%= link_to 'Details', lead_path(lead), :class => "btn btn-default" %>
-					<%= link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %>
+					<a class="btn btn-default" href="/lead/<%= lead.Id %>">Details</a>
 				</td>
 			</tr>
 		<% end %>
