@@ -31,9 +31,8 @@ class LeadsController < ApplicationController
   end
 
   def update
-  	@lead = @client.find("Lead", params[:id])
-    if @lead.update(lead_params)
-      redirect_to @lead
+    if @client.update("Lead", params[:id], lead_params)
+      redirect_to leads_path
     else
       render 'edit'
     end
