@@ -48,7 +48,61 @@ class LeadsController < ApplicationController
     redirect_to leads_path
   end
   
+  def export
+    if current_user
+      @lead = Lead.find(params[:id])
+      @externalId = 'rdstation_' + @lead.id
 
+      @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
+                      "Email" => @lead.email, "Company" => @lead.company,
+                      "Title" => @lead.job_title, "Phone" => @lead.phone,
+                      "Website" => @lead.website, "ExternalId" => @externalId
+                   }
+
+      @leadId = @client.create("Lead", @newSFLead)
+
+      @lead.externalId = @leadId
+
+      @lead.save
+
+      redirect_to @lead
+    else
+      redirect_to "/auth/salesforce"
+    end
+  end
+
+
+  private
+
+  def lead_params
+    params.require(:lead).permit(:name, :last_name, :email, :company, :job_title, :phone, :website)
+  end
+
+  def lead_sf_params
+    params.require(:lead).permit(:Id, :FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
+  end
+
+  def new_lead_sf_params
+    params.require(:lead).permit(:FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
+  end
+
+  
+  def authenticate
+#    if current_user
+#    else
+#      redirect_to "/auth/salesforce"
+#    end
+  end
+
+  def initialize_client
+    if current_user
+      @client = Restforce.new :oauth_token => current_user.oauth_token,
+        :refresh_token => current_user.refresh_token,
+        :instance_url  => current_user.instance_url,
+        :client_id     => Rails.application.config.salesforce_app_id,
+        :client_secret => Rails.application.config.salesforce_app_secret
+      end
+  end
 
   # def index
   #   @leads = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
@@ -92,36 +146,5 @@ class LeadsController < ApplicationController
   #   redirect_to leads_path
   # end
 	
-  private
-
-  def lead_params
-    params.require(:lead).permit(:name, :last_name, :email, :company, :job_title, :phone, :website)
-  end
-
-  def lead_sf_params
-    params.require(:lead).permit(:Id, :FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
-  end
-
-  def new_lead_sf_params
-    params.require(:lead).permit(:FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
-  end
-
-  
-  def authenticate
-#    if current_user
-#    else
-#      redirect_to "/auth/salesforce"
-#    end
-  end
-
-  def initialize_client
-    if current_user
-      @client = Restforce.new :oauth_token => current_user.oauth_token,
-        :refresh_token => current_user.refresh_token,
-        :instance_url  => current_user.instance_url,
-        :client_id     => Rails.application.config.salesforce_app_id,
-        :client_secret => Rails.application.config.salesforce_app_secret
-      end
-  end
 
 end

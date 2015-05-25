@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
+  match 'leads/:id/export', to: 'leads#export', via: [:get, :post]
+
   root 'leads#index'
 
   resources :leads
