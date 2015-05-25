@@ -7,7 +7,7 @@ class LeadsController < ApplicationController
   end
 
   def new
-  	@lead = @client.new("Lead")
+  	@lead = @client.describe("Lead")
   end
 
   def create
