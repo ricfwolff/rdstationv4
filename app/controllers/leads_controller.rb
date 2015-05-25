@@ -65,7 +65,7 @@ class LeadsController < ApplicationController
                       "Website" => @lead.website, "Id" => @lead.salesforceid
                    }
 
-      @leadId = @client.create!("Lead", @newSFLead)
+      @leadId = @client.upsert!("Lead", @newSFLead)
       if @leadId
         puts @leadId
 
