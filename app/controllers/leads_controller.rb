@@ -62,10 +62,10 @@ class LeadsController < ApplicationController
       @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
                       "Email" => @lead.email, "Company" => @lead.company,
                       "Title" => @lead.job_title, "Phone" => @lead.phone,
-                      "Website" => @lead.website, "Id" => @lead.salesforceid
+                      "Website" => @lead.website
                    }
 
-      @leadId = @client.upsert!("Lead", @newSFLead)
+      @leadId = @client.upsert!("Lead""Id", @lead.salesforceid, @newSFLead)
       if @leadId
         puts @leadId
 
