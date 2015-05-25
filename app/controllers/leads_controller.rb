@@ -1,6 +1,7 @@
 class LeadsController < ApplicationController
   before_action :authenticate
   before_action :initialize_client
+  before_action :clear_messages
 
   def index
     @leads = Lead.all
@@ -65,14 +66,18 @@ class LeadsController < ApplicationController
                    }
 
       @leadId = @client.create!("Lead", @newSFLead)
+      if @leadId
+        puts @leadId
 
-      puts @leadId
+        @lead.salesforceid = @leadId
 
-      @lead.salesforceid = @leadId
+        @lead.save
 
-      @lead.save
-
-      redirect_to @lead
+        redirect_to @lead, :flash => { :messages => "Sent to SalesForce with success! (Id: " + @leadId + ")" }
+      else
+        @lead.errors.push("Could not save to SalesForce. Check your fields")
+        redirect_to @lead
+      end
     else
       redirect_to "/auth/salesforce"
     end
@@ -93,6 +98,13 @@ class LeadsController < ApplicationController
     params.require(:lead).permit(:FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
   end
 
+  def clear_messages
+    @messages = false
+    if flash[:messages]
+      @messages = flash[:messages]
+      flash[:messages] = false
+    end
+  end
   
   def authenticate
 #    if current_user
