@@ -7,7 +7,7 @@ class LeadsController < ApplicationController
         :client_id     => Rails.application.config.salesforce_app_id,
         :client_secret => Rails.application.config.salesforce_app_secret
 
-      leads = client.query("select FirstName name, LastName last_name, Email email, Company company, Title job_title, Phone phone, Website website from Lead")
+      leads = client.query("select FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
       @leads = leads.all
     else
       @leads = Lead.all      

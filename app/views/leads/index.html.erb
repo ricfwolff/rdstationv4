@@ -16,13 +16,13 @@
 		<% @leads.each do |lead| %>
 			<tr>
 				<td>
-					<%= lead.name %>
+					<%= lead.FirstName %>
 				</td>
 				<td>
-					<%= lead.last_name %>
+					<%= lead.LastName %>
 				</td>
 				<td>
-					<%= lead.email %>
+					<%= lead.Email %>
 				</td>
 				<td>
 					<%= link_to 'Details', lead_path(lead), :class => "btn btn-default" %>
