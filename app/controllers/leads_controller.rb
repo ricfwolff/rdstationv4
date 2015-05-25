@@ -11,7 +11,7 @@ class LeadsController < ApplicationController
   end
 
   def create
-  	@leadId = @client.create("Lead", lead_params)
+  	@leadId = @client.create("Lead", new_lead_params)
 
     @lead = @client.find("Lead", @leadId)
 
@@ -49,6 +49,9 @@ class LeadsController < ApplicationController
     params.require(:lead).permit(:Id, :FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
   end
 
+  def new_lead_params
+    params.require(:lead).permit(:FirstName, :LastName, :Email, :Company, :Title, :Phone, :Website)
+  end
 
   private
 
