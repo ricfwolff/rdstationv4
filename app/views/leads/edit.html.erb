@@ -10,39 +10,39 @@
 	</div>
 <% end %>
 
-<h1>Edit Lead <small><%= @lead.id %></small></h1>
+<h1>Edit Lead <small><%= @lead.FirstName %></small></h1>
 <br />
-<%= form_for :lead, url: lead_path, :html => {:class => 'col-xs-12 col-sm-12 col-md-5 col-lg-4', :method => 'patch'} do |f| %>
+<%= form_for :lead, url: leads_path, :html => {:class => 'col-xs-12 col-sm-12 col-md-5 col-lg-4', :method => 'patch'} do |f| %>
 	<div class="form-group">
-		<%= link_to 'Back to list', leads_path, :class => "btn btn-default" %>
-		<%= f.submit :class => 'btn btn-primary' %>
+		<a class="btn btn-default" href="/leads/">Back to list</a>
+		<button type="submit" class="btn btn-primary">Save</button>
 	</div>
 	<div class="form-group">
-		<%= f.label :name, :class => 'control-label' %>
-		<%= f.text_field :name, :class => 'form-control' %>
+		<%= f.label :FirstName, :class => 'control-label' %>
+		<%= f.text_field :FirstName, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :last_name, :class => 'control-label ' %>
-		<%= f.text_field :last_name, :class => 'form-control' %>
+		<%= f.label :LastName, :class => 'control-label ' %>
+		<%= f.text_field :LastName, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :email, :class => 'control-label' %>
-		<%= f.text_field :email, :class => 'form-control' %>
+		<%= f.label :Email, :class => 'control-label' %>
+		<%= f.text_field :Email, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :company, :class => 'control-label' %>
-		<%= f.text_field :company, :class => 'form-control' %>
+		<%= f.label :Company, :class => 'control-label' %>
+		<%= f.text_field :Company, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :job_title, :class => 'control-label' %>
-		<%= f.text_field :job_title, :class => 'form-control' %>
+		<%= f.label :Title, :class => 'control-label' %>
+		<%= f.text_field :Title, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :phone, :class => 'control-label' %>
-		<%= f.text_field :phone, :class => 'form-control' %>
+		<%= f.label :Phone, :class => 'control-label' %>
+		<%= f.text_field :Phone, :class => 'form-control' %>
 	</div>
 	<div class="form-group">
-		<%= f.label :website, :class => 'control-label' %>
-		<%= f.text_field :website, :class => 'form-control' %>
+		<%= f.label :Website, :class => 'control-label' %>
+		<%= f.text_field :Website, :class => 'form-control' %>
 	</div>
 <% end %>

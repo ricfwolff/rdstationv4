@@ -1,29 +1,29 @@
-<h1>Lead <small><%= @lead.name %></small></h1>
+<h1>Lead <small><%= @lead.FirstName %></small></h1>
 <br />
 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 	<p>
-		<%= link_to 'Back to list', leads_path, :class => "btn btn-default" %>
-		<%= link_to 'Edit', edit_lead_path(@lead), :class => "btn btn-primary" %>
+		<a class="btn btn-default" href="/leads/">Back to list</a>
+		<a class="btn btn-primary" href="/leads/<%= @lead.Id %>/edit">Edit</a>
 	</p>
 	<p>
-		<strong>Name: </strong><%= @lead.name %>
+		<strong>Name: </strong><%= @lead.FirstName %>
 	</p>
 	<p>
-		<strong>Last name: </strong><%= @lead.last_name %>
+		<strong>Last name: </strong><%= @lead.LastName %>
 	</p>
 	<p>
-		<strong>Email: </strong><%= @lead.email %>
+		<strong>Email: </strong><%= @lead.Email %>
 	</p>
 	<p>
-		<strong>Company: </strong><%= @lead.company %>
+		<strong>Company: </strong><%= @lead.Company %>
 	</p>
 	<p>
-		<strong>Job title: </strong><%= @lead.job_title %>
+		<strong>Job title: </strong><%= @lead.Title %>
 	</p>
 	<p>
-		<strong>Phone: </strong><%= @lead.phone %>
+		<strong>Phone: </strong><%= @lead.Phone %>
 	</p>
 	<p>
-		<strong>Website: </strong><%= @lead.website %>
+		<strong>Website: </strong><%= @lead.Website %>
 	</p>
 </div>

@@ -26,7 +26,8 @@
 					<%= lead.Email %>
 				</td>
 				<td>
-					<a class="btn btn-default" href="/lead/<%= lead.Id %>">Details</a>
+					<a class="btn btn-default" href="/leads/<%= lead.Id %>">Details</a>
+					<a data-confirm="Are you sure?" class="btn btn-default" rel="nofollow" data-method="delete" href="/leads/<%= lead.Id %>">Delete</a>
 				</td>
 			</tr>
 		<% end %>
