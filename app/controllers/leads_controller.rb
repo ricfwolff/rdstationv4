@@ -51,7 +51,7 @@ class LeadsController < ApplicationController
   def export
     if current_user
       @lead = Lead.find(params[:id])
-      @externalId = 'rdstation_' + @lead.id
+      @externalId = 'rdstation_' + @lead.id.to_s
 
       @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
                       "Email" => @lead.email, "Company" => @lead.company,
