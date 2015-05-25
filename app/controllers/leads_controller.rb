@@ -23,15 +23,15 @@ class LeadsController < ApplicationController
   end
 
   def edit
-  	@lead = @client.find("Lead", params[:Id])
+  	@lead = @client.find("Lead", params[:id])
   end
 
   def show
-  	@lead = @client.find("Lead", params[:Id])
+  	@lead = @client.find("Lead", params[:id])
   end
 
   def update
-  	@lead = @client.find("Lead", params[:Id])
+  	@lead = @client.find("Lead", params[:id])
     if @lead.update(lead_params)
       redirect_to @lead
     else
@@ -40,7 +40,7 @@ class LeadsController < ApplicationController
   end
 
   def destroy
-  	@client.destroy("Lead", params[:Id])
+  	@client.destroy("Lead", params[:id])
  
     redirect_to leads_path
   end
