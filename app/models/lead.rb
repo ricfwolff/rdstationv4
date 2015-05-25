@@ -6,4 +6,5 @@ class Lead < ActiveRecord::Base
 	validates :job_title, presence: true
 	validates :phone, presence: true
 	validates :website, presence: true
+	validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 end
