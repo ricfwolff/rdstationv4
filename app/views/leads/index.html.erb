@@ -6,7 +6,29 @@
 			<%= link_to 'Add new lead', new_lead_path, :class => "btn btn-primary" %>
 	    </div>
 	</div>
-	<% @leads.each do |lead| %>
-		<%= lead.Name %>
-	<% end %>
+	
+	<table class="table table-hover">
+		<tr>
+			<th>Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Actions</th>
+		</tr>
+		<% @leads.each do |lead| %>
+			<tr>
+				<td>
+					<%= lead.FirstName %>
+				</td>
+				<td>
+					<%= lead.LastName %>
+				</td>
+				<td>
+					<%= lead.Email %>
+				</td>
+				<td>
+
+				</td>
+			</tr>
+		<% end %>
+	</table>
 </div>
