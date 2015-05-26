@@ -243,7 +243,7 @@ class LeadsController < ApplicationController
         :client_secret => Rails.application.config.salesforce_app_secret
 
       begin
-        @counter = @client.query('select count() from Lead where Lead.Id in (\'' + l.salesforceid + '\')')
+        @counterForError = @client.query('select count() from Lead')
       rescue
         puts 'I am rescued'
         redirect_to 'signout'
