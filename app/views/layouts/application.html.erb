@@ -21,18 +21,20 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/leads">RDStation</a>
-            <% if current_user %>
-              <p class="navbar-text navbar-right">Welcome <strong><%= current_user.name %></strong>!</p>
-              <p class="navbar-text navbar-right"><%= link_to "Sign out", signout_path, id: "sign_out" %></p>
-            <% else %>
-              <p class="navbar-text navbar-right"><%= link_to "Sign in with Salesforce", "/auth/salesforce", id: "sign_in" %></p>
-            <% end %>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
             <ul class="nav navbar-nav">
                 <li><a href="/leads">Leads <span class="sr-only">(current)</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if current_user %>
+                <li>Welcome <strong><%= current_user.name %></strong>!</li>
+                <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+              <% else %>
+                <li><%= link_to "Sign in with Salesforce", "/auth/salesforce", id: "sign_in" %></li>
+              <% end %>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
