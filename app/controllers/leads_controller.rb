@@ -120,7 +120,7 @@ class LeadsController < ApplicationController
 
         @lead.save
 
-        redirect_to @lead, :flash => { :messages => "Sent to SalesForce with success! (Id: " + @leadId + ")" }
+        redirect_to @lead, :flash => { :messages => "Successfully sent to SalesForce! (Id: " + @leadId + ")" }
       else
         @lead.errors.push("Could not save to SalesForce. Check your fields")
         redirect_to @lead
@@ -155,7 +155,7 @@ class LeadsController < ApplicationController
         @lead.save
       end
       
-      redirect_to @lead, :flash => { :messages => "Deleted from SalesForce with success!" }
+      redirect_to @lead, :flash => { :messages => "Successfully deleted from SalesForce!" }
     else
       redirect_to "/auth/salesforce"
     end
@@ -189,7 +189,7 @@ class LeadsController < ApplicationController
           @lead.website = @leadSF.Website
           @lead.job_title = @leadSF.Title
           @lead.save          
-          redirect_to @lead, :flash => { :messages => "Imported from SalesForce with success!" }
+          redirect_to @lead, :flash => { :messages => "Successfully imported from SalesForce!" }
         end
 
       end
