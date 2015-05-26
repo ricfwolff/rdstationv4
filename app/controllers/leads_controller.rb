@@ -73,7 +73,8 @@ class LeadsController < ApplicationController
                       "Website" => @lead.website, "Id" => @lead.salesforceid
                    }
 
-        @leadId = @client.udpate!("Lead", @newSFLead)
+        @client.update!("Lead", @newSFLead)
+        @leadId = @lead.salesforceid
       else
         @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
                       "Email" => @lead.email, "Company" => @lead.company,
