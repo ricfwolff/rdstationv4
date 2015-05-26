@@ -58,9 +58,9 @@ class LeadsController < ApplicationController
 
       puts @externalId
 
-      puts "sfid: " + @lead.salesforceid
-
-      @leadSF = @client.find("Lead", @lead.salesforceid)
+      if @lead.salesforceid
+        @leadSF = @client.find("Lead", @lead.salesforceid)
+      end
 
       if @leadSF
         @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
