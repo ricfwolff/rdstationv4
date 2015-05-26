@@ -6,12 +6,12 @@ class LeadsController < ApplicationController
   def index
     @leads = Lead.all
 
-    if current_user
-      #@leadsSF = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+    #@leadsSF = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
 
-      @leads.each do |l|
-        if l.salesforceid
-          if l.salesforceid.length == 18
+    @leads.each do |l|
+      if l.salesforceid
+        if l.salesforceid.length == 18
+          if current_user
             @counter = @client.query('select count() from Lead where Lead.Id in (\'' + l.salesforceid + '\')')
             if @counter == 0
               l.salesforceid = nil
@@ -19,6 +19,8 @@ class LeadsController < ApplicationController
           else
             l.salesforceid = nil
           end
+        else
+          l.salesforceid = nil
         end
       end
     end
@@ -46,8 +48,12 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     if @lead.salesforceid
       if @lead.salesforceid.length == 18
-        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
-        if @counter == 0
+        if current_user
+          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+          if @counter == 0
+            @lead.salesforceid = nil
+          end
+        else
           @lead.salesforceid = nil
         end
       else
