@@ -87,13 +87,21 @@ class LeadsController < ApplicationController
         puts "sfid: " + @lead.salesforceid
 
         if @lead.salesforceid.length == 18
-          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+          @counter = @client.query('select count() from Lead where Lead.Id in (\'' + @lead.salesforceid + '\')')
         else
           @counter = 0
         end
       end
 
-      if @counter > 0
+      if @counter == 0
+        @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
+                      "Email" => @lead.email, "Company" => @lead.company,
+                      "Title" => @lead.job_title, "Phone" => @lead.phone,
+                      "Website" => @lead.website
+                   }
+
+        @leadId = @client.create!("Lead", @newSFLead)
+      else
         puts "sfid2: " + @lead.salesforceid
 
         @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
@@ -104,14 +112,6 @@ class LeadsController < ApplicationController
 
         @client.update!("Lead", @newSFLead)
         @leadId = @lead.salesforceid
-      else
-        @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
-                      "Email" => @lead.email, "Company" => @lead.company,
-                      "Title" => @lead.job_title, "Phone" => @lead.phone,
-                      "Website" => @lead.website
-                   }
-
-        @leadId = @client.create!("Lead", @newSFLead)
       end
       if @leadId
         puts @leadId
@@ -138,12 +138,14 @@ class LeadsController < ApplicationController
         puts "sfid: " + @lead.salesforceid
 
         if @lead.salesforceid.length == 18
-          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+          @counter = @client.query('select count() from Lead where Lead.Id in (\'' + @lead.salesforceid + '\')')
         else
           @counter = 0
         end
         
-        if @counter > 0
+        if @counter == 0
+          puts "not found to destroy"
+        else
           puts "destroy: " + @lead.salesforceid
 
           @client.destroy!("Lead", @lead.salesforceid)
@@ -167,12 +169,14 @@ class LeadsController < ApplicationController
         puts "sfid: " + @lead.salesforceid
 
         if @lead.salesforceid.length == 18
-          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+          @counter = @client.query('select count() from Lead where Lead.Id in (\'' + @lead.salesforceid + '\')')
         else
           @counter = 0
         end
 
-        if @counter > 0
+        if @counter == 0
+          puts "nothing found to import"
+        else
           @leadSF = @client.find("Lead", @lead.salesforceid)
 
           puts "import: " + @lead.salesforceid
