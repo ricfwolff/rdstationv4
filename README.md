@@ -50,3 +50,10 @@ rake db:migrate
 
 If you have questions on how to understand any part of the code, feel free to contact me here and I'll be happy to answer. I know the code is far from beautiful and full of errors, but I plan to use it as my Ruby learner.
 
+## Screenshots
+
+The following screenshots show how the app looks like.
+
+The first page you'll see is the main Leads page. It show a list of all the Leads registered in the database:
+
+![leads_list](/ss/index.png)
