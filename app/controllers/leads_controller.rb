@@ -45,8 +45,12 @@ class LeadsController < ApplicationController
   def show
     @lead = Lead.find(params[:id])
     if @lead.salesforceid
-      @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
-      if @counter == 0
+      if @lead.salesforceid.length == 18
+        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        if @counter == 0
+          @lead.salesforceid = nil
+        end
+      else
         @lead.salesforceid = nil
       end
     end
@@ -82,7 +86,11 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        if @lead.salesforceid.length == 18
+          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        else
+          @counter = 0
+        end
       end
 
       if @counter > 0
@@ -129,7 +137,11 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        if @lead.salesforceid.length == 18
+          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        else
+          @counter = 0
+        end
         
         if @counter > 0
           puts "destroy: " + @lead.salesforceid
@@ -154,7 +166,11 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        if @lead.salesforceid.length == 18
+          @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
+        else
+          @counter = 0
+        end
 
         if @counter > 0
           @leadSF = @client.find("Lead", @lead.salesforceid)
