@@ -58,14 +58,27 @@ class LeadsController < ApplicationController
 
       puts @externalId
 
+      puts "sfid: " + @lead.salesforceid
 
-      @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
+      @leadSF = @client.find("Lead", @lead.salesforceid)
+
+      if @leadSF
+        @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
                       "Email" => @lead.email, "Company" => @lead.company,
                       "Title" => @lead.job_title, "Phone" => @lead.phone,
                       "Website" => @lead.website, "Id" => @lead.salesforceid
                    }
 
-      @leadId = @client.upsert!("Lead", "Id", @newSFLead)
+        @leadId = @client.udpate!("Lead", @newSFLead)
+      else
+        @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
+                      "Email" => @lead.email, "Company" => @lead.company,
+                      "Title" => @lead.job_title, "Phone" => @lead.phone,
+                      "Website" => @lead.website
+                   }
+
+        @leadId = @client.create!("Lead", @newSFLead)
+      end
       if @leadId
         puts @leadId
 
