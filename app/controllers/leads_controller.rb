@@ -247,7 +247,9 @@ class LeadsController < ApplicationController
       rescue Exception => e 
         puts 'I am rescued'
         puts e.message
-        render 'rescued'
+        if e.message.start_with?("API_DISABLED_FOR_ORG")
+          render 'rescued'
+        end
       end
     end
   end
