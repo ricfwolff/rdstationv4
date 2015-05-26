@@ -11,7 +11,7 @@ class LeadsController < ApplicationController
 
       @leads.each do |l|
         if l.salesforceid
-          @counter = @client.query("select count() from Lead where Id in ('" + l.salesforceid + "')")
+          @counter = @client.query("select count() from Lead where Lead.Id in ('" + l.salesforceid + "')")
           if @counter == 0
             l.salesforceid = nil
           end
