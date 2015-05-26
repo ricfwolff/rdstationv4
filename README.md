@@ -19,7 +19,7 @@ To run the online sample, simply go to [heroku-sample-app](https://rdstationv4.h
 The user interface should be easy to understand and to use. The database is shared and it shows some Leads registered on it. You can Create new Leads, Edit existing ones and Delete them.
 
 If you connect to your SalesForce organization (using Developer Edition), you'll be able to send the leads created on the app to SalesForce. 
-You can also Updated the app's leads with newest information filled on SalesForce or vice-versa.
+You can also Update the app's leads with newest information filled on SalesForce or vice-versa.
 The Delete from SalesForce feature is also available from Lead Detail's screen and it removes the Lead from SalesForce.
 
 ## Attention - SalesForce
