@@ -11,8 +11,12 @@ class LeadsController < ApplicationController
 
       @leads.each do |l|
         if l.salesforceid
-          @counter = @client.query('select count() from Lead where Lead.Id in (\'' + l.salesforceid + '\')')
-          if @counter == 0
+          if l.salesforceid.length == 18
+            @counter = @client.query('select count() from Lead where Lead.Id in (\'' + l.salesforceid + '\')')
+            if @counter == 0
+              l.salesforceid = nil
+            end
+          else
             l.salesforceid = nil
           end
         end
