@@ -244,9 +244,10 @@ class LeadsController < ApplicationController
 
       begin
         @counterForError = @client.query('select count() from Lead')
-      rescue
+      rescue Exception => e 
         puts 'I am rescued'
-        redirect_to 'signout'
+        puts e.message
+        render 'rescued'
       end
     end
   end

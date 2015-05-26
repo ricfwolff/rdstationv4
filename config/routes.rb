@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   match 'leads/:id/export_destroy', to: 'leads#export_destroy', via: [:get, :post]
   match 'leads/:id/import', to: 'leads#import', via: [:get, :post]
 
+  
+
   root 'leads#index'
 
   resources :leads
