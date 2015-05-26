@@ -7,7 +7,16 @@ class LeadsController < ApplicationController
     @leads = Lead.all
 
     if current_user
-      @leadsSF = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+      #@leadsSF = @client.query("select Id, FirstName, LastName, Email, Company, Title, Phone, Website from Lead")
+
+      @leads.each do |l|
+        if l.salesforceid
+          @counter = @client.query("select count() from Lead where Id = '" + l.salesforceid + "'")
+          if @counter == 0
+            l.salesforceid = nil
+          end
+        end
+      end
     end
   end
 
@@ -31,6 +40,12 @@ class LeadsController < ApplicationController
 
   def show
     @lead = Lead.find(params[:id])
+    if @lead.salesforceid
+      @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
+      if @counter == 0
+        @lead.salesforceid = nil
+      end
+    end
   end
 
   def update
@@ -58,13 +73,15 @@ class LeadsController < ApplicationController
 
       puts @externalId
 
+      @counter = 0
+
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @leadSF = @client.find("Lead", @lead.salesforceid)
+        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
       end
 
-      if @leadSF
+      if @counter > 0
         puts "sfid2: " + @lead.salesforceid
 
         @newSFLead = { "FirstName" => @lead.name, "LastName" => @lead.last_name,
@@ -108,9 +125,9 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @leadSF = @client.find("Lead", @lead.salesforceid)
+        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
         
-        if @leadSF
+        if @counter > 0
           puts "destroy: " + @lead.salesforceid
 
           @client.destroy!("Lead", @lead.salesforceid)
@@ -133,9 +150,11 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @leadSF = @client.find("Lead", @lead.salesforceid)
+        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
 
-        if @leadSF
+        if @counter > 0
+          @leadSF = @client.find("Lead", @lead.salesforceid)
+
           puts "import: " + @lead.salesforceid
 
           @lead.name = @leadSF.FirstName
