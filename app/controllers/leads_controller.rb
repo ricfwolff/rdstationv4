@@ -11,7 +11,7 @@ class LeadsController < ApplicationController
 
       @leads.each do |l|
         if l.salesforceid
-          @counter = @client.query("select count() from Lead where Id = '" + l.salesforceid + "'")
+          @counter = @client.query("select count() from Lead where Id in ('" + l.salesforceid + "')")
           if @counter == 0
             l.salesforceid = nil
           end
@@ -41,7 +41,7 @@ class LeadsController < ApplicationController
   def show
     @lead = Lead.find(params[:id])
     if @lead.salesforceid
-      @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
+      @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
       if @counter == 0
         @lead.salesforceid = nil
       end
@@ -78,7 +78,7 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
+        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
       end
 
       if @counter > 0
@@ -125,7 +125,7 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
+        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
         
         if @counter > 0
           puts "destroy: " + @lead.salesforceid
@@ -150,7 +150,7 @@ class LeadsController < ApplicationController
       if @lead.salesforceid
         puts "sfid: " + @lead.salesforceid
 
-        @counter = @client.query("select count() from Lead where Id = '" + @lead.salesforceid + "'")
+        @counter = @client.query("select count() from Lead where Id in ('" + @lead.salesforceid + "')")
 
         if @counter > 0
           @leadSF = @client.find("Lead", @lead.salesforceid)
