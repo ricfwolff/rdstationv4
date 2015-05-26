@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
   match 'leads/:id/export', to: 'leads#export', via: [:get, :post]
+  match 'leads/:id/export_destroy', to: 'leads#export_destroy', via: [:get, :post]
+  match 'leads/:id/import', to: 'leads#import', via: [:get, :post]
 
   root 'leads#index'
 

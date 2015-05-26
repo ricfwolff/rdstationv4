@@ -101,6 +101,60 @@ class LeadsController < ApplicationController
     end
   end
 
+  def export_destroy
+    if current_user
+      @lead = Lead.find(params[:id])
+
+      if @lead.salesforceid
+        puts "sfid: " + @lead.salesforceid
+
+        @leadSF = @client.find("Lead", @lead.salesforceid)
+        
+        if @leadSF
+          puts "destroy: " + @lead.salesforceid
+
+          @client.destroy!("Lead", @lead.salesforceid)
+        end
+
+        @lead.salesforceid = nil
+        @lead.save
+      end
+      
+      redirect_to @lead, :flash => { :messages => "Deleted from SalesForce with success!" }
+    else
+      redirect_to "/auth/salesforce"
+    end
+  end
+
+  def import
+    if current_user
+      @lead = Lead.find(params[:id])
+
+      if @lead.salesforceid
+        puts "sfid: " + @lead.salesforceid
+
+        @leadSF = @client.find("Lead", @lead.salesforceid)
+
+        if @leadSF
+          puts "import: " + @lead.salesforceid
+
+          @lead.name = @leadSF.FirstName
+          @lead.last_name = @leadSF.LastName
+          @lead.email = @leadSF.Email
+          @lead.company = @leadSF.Company
+          @lead.phone = @leadSF.Phone
+          @lead.website = @leadSF.Website
+          @lead.job_title = @leadSF.Title
+          @lead.save          
+          redirect_to @lead, :flash => { :messages => "Imported from SalesForce with success!" }
+        end
+
+      end
+      
+    else
+      redirect_to "/auth/salesforce"
+    end
+  end
 
   private
 
