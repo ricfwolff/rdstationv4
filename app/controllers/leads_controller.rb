@@ -241,7 +241,14 @@ class LeadsController < ApplicationController
         :instance_url  => current_user.instance_url,
         :client_id     => Rails.application.config.salesforce_app_id,
         :client_secret => Rails.application.config.salesforce_app_secret
+
+      begin
+        @counter = @client.query('select count() from Lead where Lead.Id in (\'' + l.salesforceid + '\')')
+      rescue
+        puts 'I am rescued'
+        redirect_to 'signout'
       end
+    end
   end
 
   # def index
